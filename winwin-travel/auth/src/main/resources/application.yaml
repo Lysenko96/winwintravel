@@ -1,7 +1,13 @@
 server:
   port: 8080
+jwt:
+  secret: FailureAndMistakesPaveTheRoadToSuccessGetComfortableFailing
+  lifetime: 30m
 spring:
   application:
     name: auth
   jpa:
+    show-sql: true
     open-in-view: false
+    hibernate:
+      ddl-auto: create-drop

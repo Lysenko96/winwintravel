@@ -16,7 +16,8 @@ import java.util.UUID;
 @Table(name = "processing_log")
 public class ProcessingLog {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
