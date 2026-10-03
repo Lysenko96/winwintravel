@@ -16,11 +16,15 @@ import org.springframework.web.client.RestClient;
 public class ProcessController {
 
     private final RestClient restClient = RestClient.create();
+    private final AuthController authController;
 
     @PostMapping("/process")
     public ResponseEntity<?> process() {
         log.info("##PROCESS");
-        restClient.get().uri("http://localhost:8081/api/transform").retrieve().body(String.class);
+        log.info(authController.getToken());
+        restClient.get().uri("http://localhost:8081/api/transform")
+                .header("Authorization", "Bearer " + authController.getToken())
+                .retrieve().body(String.class);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 

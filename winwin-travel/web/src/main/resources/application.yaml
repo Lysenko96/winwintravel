@@ -1,5 +1,8 @@
 server:
   port: 8081
+jwt:
+  secret: FailureAndMistakesPaveTheRoadToSuccessGetComfortableFailing
+  lifetime: 30m
 spring:
   application:
     name: web
