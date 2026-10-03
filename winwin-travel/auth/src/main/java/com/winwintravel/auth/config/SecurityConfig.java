@@ -37,7 +37,7 @@ public class SecurityConfig {
                                 .authenticated())
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(conf -> conf.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .exceptionHandling(conf -> conf.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
+                .exceptionHandling(conf -> conf.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.FORBIDDEN)))
                 .addFilterBefore(jwtRequsetFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }

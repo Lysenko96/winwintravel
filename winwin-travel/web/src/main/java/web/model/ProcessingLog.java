@@ -22,9 +22,16 @@ public class ProcessingLog {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
+    @Column(length = 1000)
     private String inputText;
+    @Column(length = 1000)
     private String outputText;
     @CurrentTimestamp
     private LocalDateTime createdAt;
 
+    public ProcessingLog(User user, String inputText, String outputText) {
+        this.user = user;
+        this.inputText = inputText;
+        this.outputText = outputText;
+    }
 }
