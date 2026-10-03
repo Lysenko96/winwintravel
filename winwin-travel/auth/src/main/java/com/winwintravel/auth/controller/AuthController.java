@@ -26,5 +26,4 @@ public class AuthController {
         return authService.createAuthToken(userDto);
     }
 
-
 }
