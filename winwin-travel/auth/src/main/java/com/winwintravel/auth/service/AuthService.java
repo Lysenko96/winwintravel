@@ -40,6 +40,6 @@ public class AuthService {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User is created");
         }
         userService.createNewUser(userDto);
-        return ResponseEntity.ok(HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }
