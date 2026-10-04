@@ -26,8 +26,8 @@ public class User implements UserDetails {
     @Column(unique = true)
     private String email;
     private String passwordHash;
-    @OneToOne(mappedBy = "user")
-    private ProcessingLog processingLog;
+    @OneToMany(mappedBy = "user")
+    private List<ProcessingLog> processingLog;
     @Enumerated(EnumType.STRING)
     private List<Role> roles;
 

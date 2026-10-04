@@ -3,7 +3,9 @@ package com.winwintravel.auth.service;
 import com.winwintravel.auth.config.JwtTokenUtil;
 import com.winwintravel.auth.dto.JwtResponse;
 import com.winwintravel.auth.dto.UserDto;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,6 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
+@Getter
+@Setter
 @RequiredArgsConstructor
 public class AuthService {
 
@@ -23,6 +27,7 @@ public class AuthService {
     private final JwtTokenUtil jwtTokenUtil;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+    private String token;
 
     public ResponseEntity<?> createAuthToken(UserDto userDto) {
         try {
@@ -31,7 +36,8 @@ public class AuthService {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
         }
         UserDetails userDetails = userService.loadUserByUsername(userDto.getEmail());
-        return ResponseEntity.ok(new JwtResponse(jwtTokenUtil.generateToken(userDetails)));
+        token = jwtTokenUtil.generateToken(userDetails);
+        return ResponseEntity.ok(new JwtResponse(token));
     }
 
     public ResponseEntity<?> createNewUser(UserDto userDto) {

@@ -1,6 +1,10 @@
 package com.winwintravel.auth.controller;
 
 import com.winwintravel.auth.dto.JwtResponse;
+import com.winwintravel.auth.dto.UserDto;
+import com.winwintravel.auth.model.User;
+import com.winwintravel.auth.repository.UserRepository;
+import com.winwintravel.auth.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -10,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestClient;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
@@ -17,15 +23,19 @@ import org.springframework.web.client.RestClient;
 public class ProcessController {
 
     private final RestClient restClient = RestClient.create();
-    private final JwtResponse jwtResponse;
+    private final AuthService authService;
+    private final UserRepository userRepository;
 
     @PostMapping("/process")
     public ResponseEntity<?> process() {
         log.info("##PROCESS");
-        log.info(jwtResponse.getToken());
+        log.info(authService.getToken());
+        if (authService.getToken() == null) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
         JwtResponse response = restClient.post().uri("http://localhost:8081/api/transform")
-                .header("Authorization", "Bearer " + jwtResponse.getToken())
-                .body(new JwtResponse(jwtResponse.getToken()))
+                .header("Authorization", "Bearer " + authService.getToken())
+                .body(new JwtResponse(authService.getToken()))
                 .retrieve().body(JwtResponse.class);
         log.info("{}", response);
         return ResponseEntity.status(HttpStatus.OK).build();

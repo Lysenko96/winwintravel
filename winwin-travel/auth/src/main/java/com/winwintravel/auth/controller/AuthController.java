@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     private final AuthService authService;
-    private String token;
-
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody UserDto userDto) {
         return authService.createNewUser(userDto);
@@ -27,10 +25,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserDto userDto) {
-        ResponseEntity<?> response = authService.createAuthToken(userDto);
-        JwtResponse jwtResponse = (JwtResponse) response.getBody();
-        this.token = jwtResponse != null ? jwtResponse.getToken() : null;
-        return response;
+        return authService.createAuthToken(userDto);
     }
 
 }
