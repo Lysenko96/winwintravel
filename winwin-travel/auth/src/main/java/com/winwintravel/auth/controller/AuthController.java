@@ -1,6 +1,5 @@
 package com.winwintravel.auth.controller;
 
-import com.winwintravel.auth.dto.JwtResponse;
 import com.winwintravel.auth.dto.UserDto;
 import com.winwintravel.auth.service.AuthService;
 import lombok.Getter;

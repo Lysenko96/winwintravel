@@ -1,8 +1,6 @@
 package com.winwintravel.auth.controller;
 
 import com.winwintravel.auth.dto.JwtResponse;
-import com.winwintravel.auth.dto.UserDto;
-import com.winwintravel.auth.model.User;
 import com.winwintravel.auth.repository.UserRepository;
 import com.winwintravel.auth.service.AuthService;
 import lombok.RequiredArgsConstructor;
@@ -13,8 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestClient;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api")
